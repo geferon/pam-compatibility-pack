@@ -28,3 +28,11 @@ function PAM_EXTENSION:OnInitialize()
 		PAM.EndRound()
 	end)
 end
+
+function PAM_EXTENSION:HasRoundLimitExtensionSupport()
+	return true
+end
+
+function PAM_EXTENSION:RoundLimitExtensionSupport(newRound, percentage)
+	SetGlobalInt("RoundNumber", newRound)
+end

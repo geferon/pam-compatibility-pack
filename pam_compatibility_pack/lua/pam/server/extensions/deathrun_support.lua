@@ -65,3 +65,24 @@ function PAM_EXTENSION:OnInitialize()
 		return
 	end
 end
+
+
+function PAM_EXTENSION:HasRoundLimitExtensionSupport()
+	return true
+end
+
+function PAM_EXTENSION:RoundLimitExtensionSupport(newRound, percentage)
+	if DR and MV then
+		-- We cannot modify the local counter of rounds so instead we're going to change the convar to account for the remaining rounds
+		round_limit:SetInt(round_limit:GetInt() * (1 + percentage))
+		
+		-- If next round wasn't scheduled, we start it
+		if (ROUND:GetCurrent() == ROUND_OVER and ROUND:GetTimer() <= 0) then
+			ROUND:RoundSwitch(ROUND_PREP)
+		end
+	end
+	
+	if RTV and RTV.Start and ROUND_ENDING then
+		SetGlobalInt("dr_rounds_left", rounds)
+	end
+end

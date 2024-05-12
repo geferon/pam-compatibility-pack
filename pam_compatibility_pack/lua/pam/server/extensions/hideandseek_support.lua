@@ -23,3 +23,13 @@ function PAM_EXTENSION:OnInitialize()
 		PAM.EndRound()
 	end)
 end
+
+function PAM_EXTENSION:HasRoundLimitExtensionSupport()
+	return true
+end
+
+function PAM_EXTENSION:RoundLimitExtensionSupport(newRound, percentage)
+	SetGlobalInt("RoundNumber", newRound)
+	GAMEMODE.RoundCount = newRound
+	GAMEMODE:RoundTimer(2)
+end
