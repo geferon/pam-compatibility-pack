@@ -1,11 +1,22 @@
 PAM_EXTENSION.name = "deathrun_support"
 PAM_EXTENSION.enabled = true
 
+function PAM_EXTENSION:Initialize()
+	if engine.ActiveGamemode() ~= "deathrun" then return false end
+end
+
+local round_limit
 function PAM_EXTENSION:OnInitialize()
-	if GAMEMODE_NAME ~= "deathrun" then return end
+	local maxRounds = PAM.extension_handler.RunReturningEvent("GetRoundLimit")
 
 	-- Arizard/deathrun
 	if DR and MV and MV.BeginMapVote then
+		round_limit = GetConVar("deathrun_round_limit")
+		
+		if maxRounds then
+			round_limit:SetInt(maxRounds)
+		end
+
 		-- remove original functionality by cutting off the api
 		concommand.Remove("mapvote_begin_mapvote")
 		concommand.Remove("mapvote_list_maps")
@@ -34,6 +45,10 @@ function PAM_EXTENSION:OnInitialize()
 
 	-- Mr-Gash/GMod-Deathrun
 	if RTV and RTV.Start and ROUND_ENDING then
+		if maxRounds then
+			SetGlobalInt("dr_rounds_left", maxRounds)
+		end
+
 		-- remove original functionality by cutting off the api
 		hook.Remove("PlayerSay", "RTV Chat Commands")
 		concommand.Remove("rtv_vote")

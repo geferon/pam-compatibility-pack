@@ -1,9 +1,11 @@
 PAM_EXTENSION.name = "prop_hunt_support"
 PAM_EXTENSION.enabled = true
 
-function PAM_EXTENSION:OnInitialize()
-	if GAMEMODE_NAME ~= "prop_hunt" then return end
+function PAM_EXTENSION:Initialize()
+	if engine.ActiveGamemode() ~= "prop_hunt" then return false end
+end
 
+function PAM_EXTENSION:OnInitialize()
 	-- prop-hunt-enhanced/prop-hunt-enhanced
 	-- Reconstructing MiRe's MapVote api since prop-hunt-enhanced shamelessly copied it's code.
 	MapVote = MapVote or {}
