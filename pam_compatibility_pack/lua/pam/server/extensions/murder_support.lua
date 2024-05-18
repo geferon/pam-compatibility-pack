@@ -1,7 +1,7 @@
 PAM_EXTENSION.name = "murder_support"
 PAM_EXTENSION.enabled = true
 
-function PAM_EXTENSION:Initialize()
+function PAM_EXTENSION:CanEnable()
 	if engine.ActiveGamemode() ~= "murder" then return false end
 end
 

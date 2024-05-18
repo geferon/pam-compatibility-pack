@@ -1,7 +1,7 @@
 PAM_EXTENSION.name = "prop_hunt_support"
 PAM_EXTENSION.enabled = true
 
-function PAM_EXTENSION:Initialize()
+function PAM_EXTENSION:CanEnable()
 	if engine.ActiveGamemode() ~= "prop_hunt" then return false end
 end
 

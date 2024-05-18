@@ -1,7 +1,7 @@
 PAM_EXTENSION.name = "hideandseek_support"
 PAM_EXTENSION.enabled = true
 
-function PAM_EXTENSION:Initialize()
+function PAM_EXTENSION:CanEnable()
 	if engine.ActiveGamemode() ~= "hideandseek" then return false end
 end
 
