@@ -21,6 +21,7 @@ function PAM_EXTENSION:OnInitialize()
 	RTV = RTV or {}
 	RTV.StartVote = function() return end
 	RTV.AddVote = function() return end
+	hook.Remove("PlayerSay", "RTV Chat Commands")
 
 
 	-- Notify PAM that the round has ended
